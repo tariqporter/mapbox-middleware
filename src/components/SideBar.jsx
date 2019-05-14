@@ -5,6 +5,9 @@ import { selectPointAction } from '../actions';
 import { Button, withStyles } from '@material-ui/core';
 
 const styles = {
+  zoom: {
+    margin: 10
+  },
   flex: {
     display: 'flex',
     flexDirection: 'column',
@@ -17,7 +20,7 @@ class SideBar extends PureComponent {
     const { classes, points, zoom, selectPoint, selectedPointId } = this.props;
     return (
       <div>
-        <h3>Zoom level: {zoom.toFixed(2)}</h3>
+        <h3 className={classes.zoom}>Zoom level: {zoom.toFixed(2)}</h3>
         {
           points.map(point => (
             <Button key={point.id} classes={{ root: classes.flex }} variant="contained" color={point.id === selectedPointId ? 'primary' : 'default'} onClick={() => selectPoint(point)}>
