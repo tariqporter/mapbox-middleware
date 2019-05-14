@@ -25,6 +25,7 @@ export class Map {
     this.dispatch = dispatch;
     this.points = [];
     this.clickFn = null;
+    this.zoomFn = null;
   }
 
   addDispatch(dispatch) {
