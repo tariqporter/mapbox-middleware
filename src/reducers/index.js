@@ -16,6 +16,9 @@ export default (state = initialState, action) => {
     case ACTIONS.MAPGL_POINT_SELECTED: {
       return { ...state, selectedPointId: action.point.id };
     }
+    case ACTIONS.MAPGL_ZOOMED: {
+      return { ...state, zoom: action.zoom };
+    }
     default:
       return state;
   }

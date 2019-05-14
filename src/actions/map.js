@@ -9,7 +9,8 @@ export const MAPBOX_ACTIONS = {
 
 // Actions to cause outside behaviour from interaction with map
 export const ACTIONS = {
-  MAPGL_POINT_SELECTED: 'MAPGL_POINT_SELECTED'
+  MAPGL_POINT_SELECTED: 'MAPGL_POINT_SELECTED',
+  MAPGL_ZOOMED: 'MAPGL_ZOOMED'
 };
 
 export class MapBoxAction {
@@ -32,12 +33,22 @@ export class Map {
 
   setPoints(points) {
     if (this.clickFn) {
-      this.map.off(this.clickFn);
+      this.map.off('click', this.clickFn);
     }
     this.clickFn = (e) => {
       this.clearPopups();
     };
+
+    if (this.zoomFn) {
+      this.map.off('zoom', this.zoomFn);
+    }
+    this.zoomFn = (e) => {
+      const zoom = this.map.getZoom();
+      this.dispatch({ type: ACTIONS.MAPGL_ZOOMED, zoom });
+    };
+
     this.map.on('click', this.clickFn);
+    this.map.on('zoom', this.zoomFn);
 
     points.forEach((point) => {
       const el = document.createElement('div');
